@@ -23,7 +23,7 @@ type MarketPrice struct {
 	Id               int       `json:"-"`
 	LastUpdated      time.Time `json:"last_updated"`
 	ItemGroupTypeId  string    `json:"ItemGroupType"`
-	ItemTypeId       string    `json:"ItemType"`
+	ItemTypeId       string    `json:"ItemTypeId,"`
 	EnchantmentLevel int       `json:"EnchantmentLevel"`
 	QualityLevel     int       `json:"QualityLevel"`
 	Tier             int       `json:"TierLevel"`

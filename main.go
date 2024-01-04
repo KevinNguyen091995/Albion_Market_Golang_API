@@ -17,7 +17,7 @@ func main() {
 	router.HandleFunc("/items/description", handlers.GetItemNameHandler).Methods("GET")
 	router.HandleFunc("/items", handlers.GetMarketItemsHandler).Methods("GET")
 	router.HandleFunc("/prices/all", handlers.GetMarketPriceHandler).Methods("GET")
-	router.HandleFunc("/prices/details", handlers.GetMarketPriceHandler).Methods("GET")
+	router.HandleFunc("/prices/detail/{ItemGroupTypeId}", handlers.GetMarketPriceDetailHandler).Methods("GET")
 
 	// Start the server
 	http.Handle("/", router)
