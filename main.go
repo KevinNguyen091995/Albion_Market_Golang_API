@@ -14,9 +14,13 @@ func main() {
 	router := mux.NewRouter()
 
 	// Define API routes
-	router.HandleFunc("/items/description", handlers.GetItemNameHandler).Methods("GET")
-	router.HandleFunc("/items/categories", handlers.GetItemCategoryHandler).Methods("GET")
-	router.HandleFunc("/items", handlers.GetMarketItemsHandler).Methods("GET")
+	//Items GET
+	router.HandleFunc("/items/all", handlers.GetMarketItemsHandler).Methods("GET")
+	router.HandleFunc("/items/detail/description", handlers.GetItemNameHandler).Methods("GET")
+	router.HandleFunc("/items/detail/categories", handlers.GetItemCategoryListHandler).Methods("GET")
+	router.HandleFunc("/items/{ItemCategory}", handlers.GetItemCategoryHandler).Methods("GET")
+
+	//Prices GET
 	router.HandleFunc("/prices/all", handlers.GetMarketPriceHandler).Methods("GET")
 	router.HandleFunc("/prices/detail/{ItemGroupTypeId}", handlers.GetMarketPriceDetailHandler).Methods("GET")
 
