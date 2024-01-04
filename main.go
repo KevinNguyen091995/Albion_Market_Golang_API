@@ -15,6 +15,7 @@ func main() {
 
 	// Define API routes
 	router.HandleFunc("/items/description", handlers.GetItemNameHandler).Methods("GET")
+	router.HandleFunc("/items/categories", handlers.GetItemCategoryHandler).Methods("GET")
 	router.HandleFunc("/items", handlers.GetMarketItemsHandler).Methods("GET")
 	router.HandleFunc("/prices/all", handlers.GetMarketPriceHandler).Methods("GET")
 	router.HandleFunc("/prices/detail/{ItemGroupTypeId}", handlers.GetMarketPriceDetailHandler).Methods("GET")

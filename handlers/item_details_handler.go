@@ -1,10 +1,10 @@
 package handlers
 
 import (
-    "net/http"
 	"Backend/database"
-    "Backend/models"
-    "Backend/utils"
+	"Backend/models"
+	"Backend/utils"
+	"net/http"
 )
 
 func GetMarketItemsHandler(w http.ResponseWriter, r *http.Request) {
@@ -43,6 +43,48 @@ func GetMarketItemsHandler(w http.ResponseWriter, r *http.Request) {
 		items = append(items, item)
 	}
 
+	// Respond with the items in JSON format
+	utils.RespondJSON(w, http.StatusOK, items)
+}
+
+func GetItemCategoryHandler(w http.ResponseWriter, r *http.Request) {
+	// Open a database connection
+	db, err := database.ConnectDB()
+	if err != nil {
+		// Handle the error
+		http.Error(w, "Error connecting to the database", http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	query := `SELECT DISTINCT item_category FROM market_api_itemmodel`
+	rows, err := db.Query(query)
+
+	if err != nil {
+		panic("FAILED TO QUERY, REVIEW QUERY STATEMENT")
+	}
+
+	type Category struct {
+		ItemCategory string `json:"item_category"`
+	}
+
+	// Create variables to store the result
+	var items []Category
+
+	for rows.Next() {
+		var item Category
+
+		// Scan the values from the query result into variables
+		scanErr := rows.Scan(&item.ItemCategory)
+		if scanErr != nil {
+			// handle error
+			utils.RespondError(w, http.StatusInternalServerError, "Error querying the database")
+			return
+		}
+
+		// Use append to add the item to the items slice
+		items = append(items, item)
+	}
 
 	// Respond with the items in JSON format
 	utils.RespondJSON(w, http.StatusOK, items)

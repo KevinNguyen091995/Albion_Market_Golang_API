@@ -22,10 +22,10 @@ type MarketItem struct {
 type MarketPrice struct {
 	Id               int       `json:"-"`
 	LastUpdated      time.Time `json:"last_updated"`
-	ItemGroupTypeId  string    `json:"ItemGroupType"`
-	ItemTypeId       string    `json:"ItemTypeId,"`
-	EnchantmentLevel int       `json:"EnchantmentLevel"`
-	QualityLevel     int       `json:"QualityLevel"`
-	Tier             int       `json:"TierLevel"`
-	UnitPriceSilver  int       `json:"UnitPriceSilver"`
+	ItemGroupTypeId  string    `json:"item_group"`
+	ItemTypeId       string    `json:"item_type,"`
+	EnchantmentLevel int       `json:"enchant_level"`
+	QualityLevel     int       `json:"quality_level"`
+	Tier             int       `json:"tier_level"`
+	UnitPriceSilver  int       `json:"unit_price"`
 }
