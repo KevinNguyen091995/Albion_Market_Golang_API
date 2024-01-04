@@ -2,22 +2,24 @@
 package main
 
 import (
-    "net/http"
+	"net/http"
 
-    "Backend/handlers"
+	"Backend/handlers"
 
-    "github.com/gorilla/mux"
+	"github.com/gorilla/mux"
 )
 
 func main() {
-    // Create a new router
-    router := mux.NewRouter()
+	// Create a new router
+	router := mux.NewRouter()
 
-    // Define API routes
+	// Define API routes
 	router.HandleFunc("/items/description", handlers.GetItemNameHandler).Methods("GET")
 	router.HandleFunc("/items", handlers.GetMarketItemsHandler).Methods("GET")
+	router.HandleFunc("/prices/all", handlers.GetMarketPriceHandler).Methods("GET")
+	router.HandleFunc("/prices/details", handlers.GetMarketPriceHandler).Methods("GET")
 
-    // Start the server
-    http.Handle("/", router)
-    http.ListenAndServe(":8080", nil)
+	// Start the server
+	http.Handle("/", router)
+	http.ListenAndServe(":8080", nil)
 }

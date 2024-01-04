@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func GetItemNameHandler(w http.ResponseWriter, r *http.Request) {
+func GetMarketPriceHandler(w http.ResponseWriter, r *http.Request) {
 	// Open a database connection
 	db, err := database.ConnectDB()
 	if err != nil {
@@ -18,7 +18,7 @@ func GetItemNameHandler(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	// Execute the SQL query to get UniqueName and ItemName
-	query := "SELECT unique_name, item_name FROM market_api_itemdescriptionmodel"
+	query := `SELECT "id", "last_updated", "ItemGroupTypeId", "EnchantmentLevel", "QualityLevel", "Tier", "UnitPriceSilver" FROM market_prices_marketpricesmodel`
 	rows, err := db.Query(query)
 
 	if err != nil {
@@ -26,13 +26,13 @@ func GetItemNameHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Create variables to store the result
-	var items []models.MarketItemDescription
+	var items []models.MarketPrice
 
 	for rows.Next() {
-		var item models.MarketItemDescription
+		var item models.MarketPrice
 
 		// Scan the values from the query result into variables
-		scanErr := rows.Scan(&item.UniqueName, &item.ItemName)
+		scanErr := rows.Scan(&item.Id, &item.LastUpdated, &item.ItemGroupTypeId, &item.EnchantmentLevel, &item.QualityLevel, &item.Tier, &item.UnitPriceSilver)
 		if scanErr != nil {
 			// handle error
 			utils.RespondError(w, http.StatusInternalServerError, "Error querying the database")
